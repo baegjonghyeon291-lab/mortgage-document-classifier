@@ -24,16 +24,32 @@ Underwriting System (AUS); it does not make lending decisions.
 
 ## Architecture
 
-```text
-PDF -> page extraction -> text-quality gate -> selective OCR
-    -> explainable rule scoring -> optional AI adjudication
-    -> page-marker detection -> document reconstruction
-    -> CSV / JSON / metrics / standalone HTML report / review UI
+```mermaid
+flowchart LR
+    PDF["Shuffled PDF"] --> Extract["Page extraction"]
+    Extract --> Gate{"Usable embedded text?"}
+    Gate -->|Yes| Rules["Explainable rule scoring"]
+    Gate -->|No| OCR["Selective OCR"]
+    OCR --> Rules
+    Rules --> Review{"Low confidence?"}
+    Review -->|No| Group["Document reconstruction"]
+    Review -->|Yes| AI["Local AI adjudication"]
+    AI --> Guard["Rule-preserving safety guard"]
+    Guard --> Group
+    Group --> Output["CSV · JSON · HTML · metrics"]
 ```
 
 See [PRD](docs/PRD.md), [technical design](docs/TECHNICAL_DESIGN.md), and
 [data schema](docs/DATA_SCHEMA.md). A production-oriented [ERD](docs/ERD.md) is included as an
 extension design; the coding-test runtime itself remains database-free.
+
+For a concise reviewer walkthrough, use the [five-minute demo script](docs/DEMO_SCRIPT.md).
+
+Run the final repository, test, and PII checks with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
+```
 
 ## Setup
 
