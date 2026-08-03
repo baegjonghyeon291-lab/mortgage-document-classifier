@@ -4,6 +4,8 @@ An auditable page classifier and document reconstruction pipeline for shuffled m
 PDF packages. This is the document-understanding stage before field extraction and an Automated
 Underwriting System (AUS); it does not make lending decisions.
 
+**[Open the PII-minimized package 02 review demo](https://baegjonghyeon291-lab.github.io/mortgage-document-classifier/)**
+
 ## Why this submission is different
 
 - Every result includes confidence, evidence, extraction method, and review status.

@@ -14,7 +14,11 @@ try {
     }
 
     $sensitivePatterns = "Samira|Rauf|Fox Hollow|SSN|231,239|181,519|text_preview"
-    $hits = Get-ChildItem -LiteralPath "submission" -File |
+    $publicArtifacts = @(
+        Get-ChildItem -LiteralPath "submission" -File
+        Get-Item -LiteralPath "docs/index.html"
+    )
+    $hits = $publicArtifacts |
         Select-String -Pattern $sensitivePatterns -CaseSensitive:$false
     if ($hits) {
         throw "Potential PII found in submission artifacts: $hits"
@@ -25,4 +29,3 @@ try {
 finally {
     Pop-Location
 }
-
