@@ -144,6 +144,13 @@ Every `analyze` command also creates a dependency-free `report.html`. This is th
 fallback for locked-down environments where native Streamlit dependencies are unavailable.
 Open `submission/package_02_report.html` directly in a browser to review the supplied result.
 
+### Local actual-data review
+
+The public report intentionally excludes page images and extracted text. To inspect the supplied
+PDF locally with real page renders and text, run `scripts/build_local_review.py`, then serve its
+ignored output directory on `127.0.0.1`. The generated viewer contains restricted data and must
+never be committed or published.
+
 ## Measured package 01 baseline
 
 The current deterministic pipeline classifies 39 of 39 supplied package 01 pages correctly
