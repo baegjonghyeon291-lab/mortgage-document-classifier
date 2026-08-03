@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[cod]
+.env
+
+# The coding-test documents must not be committed or shared.
+data/input/**
+!data/input/.gitkeep
+outputs/**
+!outputs/.gitkeep
+tmp/**
+!tmp/.gitkeep
+
