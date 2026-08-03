@@ -53,6 +53,22 @@ Run the final repository, test, and PII checks with:
 powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
+## Technology choices and trade-offs
+
+| Choice | Why it is used | Main trade-off |
+|---|---|---|
+| `pypdf` | Preserves source-page boundaries and extracts embedded text cheaply | Does not OCR image-only pages |
+| Poppler + Tesseract | Renders and reads only pages without usable embedded text | Adds local binaries and scan-quality variance |
+| Weighted document rules | Fast, deterministic, and records the evidence behind a label | Template changes require rule maintenance |
+| Local Ollama (`qwen2.5:3b`) | Reviews ambiguous pages without sending restricted data externally | Slower than rules and can over-predict `OTHER` |
+| CSV, JSON, and HTML | Results are inspectable without a database or proprietary viewer | Not a multi-user production service |
+
+Whole-document parsers such as Kordoc were considered but not selected as the primary parser
+because this task must preserve page boundaries and render individual pages. An LLM-only design was
+rejected after a permissive local-AI experiment reduced package 01 accuracy to 76.92%. Fine-tuning
+was also rejected because the supplied labels contain too little template and `OTHER` diversity to
+support a credible generalization claim.
+
 ## Setup
 
 Python 3.11 or later is required.
@@ -170,6 +186,11 @@ The current deterministic pipeline classifies 39 of 39 supplied package 01 pages
 template-specific result, not a claim of production generalization. The forms contain repeated,
 highly distinctive headers, and two sparse edge cases were analyzed explicitly.
 
+Ground truth is generated in code by normalizing each shuffled page's extracted text, hashing it,
+and matching that fingerprint to exactly one page in the four separated reference PDFs. Evaluation
+then compares the predicted and matched label for every source page and reports accuracy,
+per-class precision, recall, F1, confusion-matrix counts, and the error list.
+
 The initial baseline scored 37/39 (94.87%). Its two errors were:
 
 1. An anonymized plat-map page with all substantive content removed.
@@ -196,6 +217,6 @@ despite the prompt mentioning three packages.
 - OCR quality depends on the local Tesseract installation and scan quality.
 - AI calibration needs a larger held-out dataset and cost/latency measurement.
 - `OTHER` has no labeled examples in package 01, so its precision cannot be measured there.
-- Page thumbnails and side-by-side ground-truth comparison should be added to the UI.
+- Ground-truth comparison is available for package 01 metrics but is not shown beside every page.
 - Production use needs encrypted storage, retention controls, PII-aware observability, and access
   auditing.

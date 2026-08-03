@@ -55,11 +55,10 @@ rotations, low-resolution scans, mixed document instances, and labeled `OTHER` p
 
 ## AI comparison plan
 
-The code includes an opt-in structured AI adjudicator for low-confidence pages. It is disabled in
-the supplied-data run because external sharing is prohibited and no approved external transfer
-was assumed. The intended controlled experiment compares rule-only and hybrid runs on the same
-held-out pages, reporting accuracy, AI calls, latency, and estimated cost. A local
-OpenAI-compatible endpoint can run the same experiment without external document transfer.
+The code includes an opt-in structured AI adjudicator for low-confidence pages. External AI is
+disabled because the data cannot be shared outside the assignment. Supplied-data hybrid runs use a
+local Ollama model instead. The controlled comparison reports accuracy, AI calls, latency, and
+model disagreements on the same pages without external document transfer.
 
 ## Local AI safety experiment
 
