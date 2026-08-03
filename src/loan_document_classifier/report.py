@@ -26,7 +26,7 @@ def write_html_report(
     pages: list[PageResult],
     documents: list[DocumentResult],
     *,
-    title: str = "Mortgage Package Analysis",
+    title: str = "Loan Package Review",
 ) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -83,7 +83,7 @@ th,td{{border-bottom:1px solid var(--line);padding:11px 10px;vertical-align:top}
 .meta{{color:var(--muted);font-size:12px}} footer{{margin:26px 0;color:var(--muted);font-size:12px}}
 @media(max-width:800px){{main{{padding:20px}}.metrics{{grid-template-columns:repeat(2,1fr)}}header{{display:block}}}}
 </style></head><body><main>
-<header><div><div class="eyebrow">Explainable document intelligence</div><h1>{safe_title}</h1><p class="subtitle">Page-level evidence, selective OCR, and logical document reconstruction.</p></div><div class="meta">{len(pages)} pages · {len(documents)} groups</div></header>
+<header><div><h1>{safe_title}</h1><p class="subtitle">Page classification results</p></div><div class="meta">{len(pages)} pages · {len(documents)} groups</div></header>
 <section class="metrics">{cards}</section>
 <section class="panel"><div class="toolbar"><strong>Page classifications</strong><select id="typeFilter"><option value="">All types</option>{''.join(f'<option>{x}</option>' for x in COLORS)}</select><label><input id="reviewFilter" type="checkbox"> Needs review only</label></div>
 <div class="table-wrap"><table><thead><tr><th>Source</th><th>Type</th><th>Confidence</th><th>Status</th><th>Extraction</th><th>Classifier</th><th>Doc page</th><th>Evidence</th></tr></thead><tbody id="pageRows">{rows}</tbody></table></div></section>
@@ -95,4 +95,3 @@ function filter(){{document.querySelectorAll('#pageRows tr').forEach(r=>{{r.hidd
 type.addEventListener('change',filter);review.addEventListener('change',filter);
 </script></body></html>"""
     target.write_text(markup, encoding="utf-8")
-

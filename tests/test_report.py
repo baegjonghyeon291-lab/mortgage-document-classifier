@@ -14,8 +14,7 @@ def test_html_report_excludes_text_preview(tmp_path) -> None:
         text_preview="SECRET BORROWER NAME",
     )
     output = tmp_path / "report.html"
-    write_html_report(output, [page], [])
+    write_html_report(output, [page], [], title="Loan Package Review")
     rendered = output.read_text(encoding="utf-8")
     assert "Fannie Mae Form 1003" in rendered
     assert "SECRET BORROWER NAME" not in rendered
-

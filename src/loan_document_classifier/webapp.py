@@ -26,7 +26,7 @@ MAX_UPLOAD_BYTES = 50 * 1024 * 1024
 
 
 UPLOAD_PAGE = """<!doctype html><html lang="ko"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width"><title>Mortgage PDF Analyzer</title>
+<meta name="viewport" content="width=device-width"><title>Loan Package Review</title>
 <style>
 :root{--ink:#12213d;--muted:#64748b;--line:#dbe3ef;--blue:#2563eb;--bg:#f3f6fb}*{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Segoe UI,sans-serif}main{max-width:760px;margin:7vh auto;padding:28px}
@@ -36,10 +36,10 @@ input[type=file]{position:absolute;left:-9999px}.options{display:grid;grid-templ
 button{width:100%;border:0;border-radius:12px;background:var(--blue);color:white;padding:14px;font-size:16px;font-weight:800;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}.privacy{margin:18px 0 0;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:11px;font-size:13px}
 #fileName{margin-top:12px;color:var(--blue);font-weight:700}.loading{position:fixed;inset:0;background:#0f172ae8;color:white;display:none;place-items:center;text-align:center;z-index:5}.loading.show{display:grid}.spinner{width:48px;height:48px;border:5px solid #ffffff35;border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;margin:auto}@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:600px){main{padding:16px}.panel{padding:22px}.options{grid-template-columns:1fr}}
-</style></head><body><main><section class="panel"><h1>Mortgage PDF Analyzer</h1><p class="sub">섞여 있는 대출 PDF를 페이지별로 분류하고 문서 구조를 복원합니다.</p>
+</style></head><body><main><section class="panel"><h1>Loan Package Review</h1><p class="sub">대출 패키지 PDF의 페이지 분류 결과를 확인합니다.</p>
 <form id="form" method="post" action="/analyze" enctype="multipart/form-data">
 <label class="drop" for="pdf"><strong>PDF 파일 선택</strong><span>최대 50MB · 파일은 분석 후 자동 삭제</span><div id="fileName"></div></label><input id="pdf" name="pdf" type="file" accept="application/pdf,.pdf" required>
-<div class="options"><label class="option"><input name="ocr" type="checkbox" checked> OCR 사용<small>이미지 페이지에만 실행</small></label><label class="option"><input name="ai" type="checkbox" checked> 로컬 AI 사용<small>저신뢰도 페이지만 Ollama 심사</small></label></div>
+<div class="options"><label class="option"><input name="ocr" type="checkbox" checked> OCR 사용<small>이미지로 된 페이지 읽기</small></label><label class="option"><input name="ai" type="checkbox" checked> 추가 검토<small>판단이 애매한 페이지만 확인</small></label></div>
 <button id="submit" type="submit" disabled>분석 시작</button></form>
 <p class="privacy">로컬 전용: PDF와 분석 결과는 이 PC 밖으로 전송되지 않습니다.</p></section></main>
 <div id="loading" class="loading"><div><div class="spinner"></div><h2>PDF 분석 중</h2><p>페이지 수와 OCR 대상에 따라 잠시 걸릴 수 있습니다.</p></div></div>
@@ -246,7 +246,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Local mortgage PDF upload and analysis server")
+    parser = argparse.ArgumentParser(description="Local loan package review server")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--runtime-root", type=Path, default=Path("outputs/runtime"))
@@ -266,7 +266,7 @@ def main() -> None:
     server.tesseract = args.tesseract
     server.ollama_url = args.ollama_url
     server.model = args.model
-    print(f"Local analyzer: http://{args.host}:{args.port}/")
+    print(f"Loan Package Review: http://{args.host}:{args.port}/")
     server.serve_forever()
 
 

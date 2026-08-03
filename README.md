@@ -1,10 +1,10 @@
-# Explainable Mortgage Document Classifier
+# Loan Package Review
 
-An auditable page classifier and document reconstruction pipeline for shuffled mortgage-loan
-PDF packages. This is the document-understanding stage before field extraction and an Automated
-Underwriting System (AUS); it does not make lending decisions.
+A page classification and document grouping tool for shuffled mortgage-loan PDF packages. It
+prepares documents for later field extraction and underwriting workflows; it does not make lending
+decisions.
 
-**[Open the PII-minimized package 02 review demo](https://baegjonghyeon291-lab.github.io/mortgage-document-classifier/)**
+**[Open the package 02 sample results](https://baegjonghyeon291-lab.github.io/loan-package-review/)**
 
 ## Why this submission is different
 
@@ -30,7 +30,7 @@ Underwriting System (AUS); it does not make lending decisions.
 flowchart LR
     PDF["Shuffled PDF"] --> Extract["Page extraction"]
     Extract --> Gate{"Usable embedded text?"}
-    Gate -->|Yes| Rules["Explainable rule scoring"]
+    Gate -->|Yes| Rules["Rule scoring"]
     Gate -->|No| OCR["Selective OCR"]
     OCR --> Rules
     Rules --> Review{"Low confidence?"}
@@ -144,7 +144,7 @@ Every `analyze` command also creates a dependency-free `report.html`. This is th
 fallback for locked-down environments where native Streamlit dependencies are unavailable.
 Open `submission/package_02_report.html` directly in a browser to review the supplied result.
 
-### Local actual-data review
+### Local document review
 
 The public report intentionally excludes page images and extracted text. To inspect the supplied
 PDF locally with real page renders and text, run `scripts/build_local_review.py`, then serve its

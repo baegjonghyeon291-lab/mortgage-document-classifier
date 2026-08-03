@@ -74,7 +74,7 @@ def build(
 
     options = "".join(f"<option>{name}</option>" for name in COLORS)
     markup = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width"><title>Local Actual-Data Review</title>
+<meta name="viewport" content="width=device-width"><title>Loan Package Review</title>
 <style>
 :root{{--ink:#12213d;--muted:#64748b;--line:#dbe3ef;--bg:#f3f6fb}}*{{box-sizing:border-box}}
 body{{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Segoe UI,sans-serif}}
@@ -86,7 +86,7 @@ select,label{{background:white;border:1px solid var(--line);border-radius:9px;pa
 .badge{{color:var(--badge);background:color-mix(in srgb,var(--badge) 10%,white);padding:4px 8px;border-radius:99px;font-size:11px;font-weight:800}}
 .body{{display:grid;grid-template-columns:minmax(260px,45%) 1fr;gap:16px;padding:16px}}.imagebox{{aspect-ratio:1;display:grid;place-items:center;background:#eef2f7;overflow:hidden;border:1px solid var(--line)}}img{{max-width:100%;max-height:100%;transition:transform .18s ease}}dl{{display:grid;grid-template-columns:100px 1fr;gap:7px;margin:0 0 14px}}dt{{color:var(--muted)}}dd{{margin:0}}details{{border-top:1px solid var(--line);padding-top:12px}}summary{{cursor:pointer;font-weight:700;color:#b45309}}pre{{white-space:pre-wrap;word-break:break-word;max-height:430px;overflow:auto;background:#f8fafc;padding:12px;border-radius:9px;font-size:11px}}
 @media(max-width:950px){{.grid{{grid-template-columns:1fr}}}}@media(max-width:620px){{main{{padding:18px}}.body{{grid-template-columns:1fr}}}}
-</style></head><body><main><h1>Local Actual-Data Review</h1>
+</style></head><body><main><h1>Loan Package Review</h1>
 <div class="warning"><strong>LOCAL ONLY:</strong> This viewer contains restricted page images and extracted document text. Do not publish or commit this folder.</div>
 <div class="toolbar"><select id="type"><option value="">All document types</option>{options}</select><label><input id="review" type="checkbox"> Needs review only</label><span id="count"></span></div>
 <div class="grid" id="pages">{''.join(cards)}</div></main><script>

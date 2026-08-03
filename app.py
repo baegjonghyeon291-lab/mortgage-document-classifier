@@ -12,9 +12,9 @@ from loan_document_classifier.io import result_payload
 from loan_document_classifier.pipeline import analyze_pdf
 
 
-st.set_page_config(page_title="Mortgage Package Inspector", page_icon="📄", layout="wide")
-st.title("Mortgage Package Inspector")
-st.caption("Explainable page classification and logical document reconstruction")
+st.set_page_config(page_title="Loan Package Review", page_icon="📄", layout="wide")
+st.title("Loan Package Review")
+st.caption("Page classification and document grouping")
 
 uploaded = st.file_uploader("Upload a shuffled mortgage PDF", type=["pdf"])
 if uploaded:
