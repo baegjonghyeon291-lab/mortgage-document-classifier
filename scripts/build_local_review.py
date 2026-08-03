@@ -18,7 +18,15 @@ COLORS = {
 }
 
 
-def build(pdf: Path, results_path: Path, output: Path, pdftoppm: str, tesseract: str) -> None:
+def build(
+    pdf: Path,
+    results_path: Path,
+    output: Path,
+    pdftoppm: str,
+    tesseract: str,
+    *,
+    use_ocr: bool = True,
+) -> None:
     output.mkdir(parents=True, exist_ok=True)
     page_dir = output / "pages"
     page_dir.mkdir(exist_ok=True)
@@ -34,7 +42,7 @@ def build(pdf: Path, results_path: Path, output: Path, pdftoppm: str, tesseract:
         pdftoppm_command=pdftoppm,
         tesseract_command=tesseract,
     )
-    extracted = extract_pages(pdf, ocr_engine=ocr)
+    extracted = extract_pages(pdf, ocr_engine=ocr if use_ocr else None)
     payload = json.loads(results_path.read_text(encoding="utf-8"))
     results = {int(item["source_page"]): item for item in payload["pages"]}
     if len(images) != len(extracted):
@@ -97,8 +105,16 @@ def main() -> None:
     parser.add_argument("output", type=Path)
     parser.add_argument("--pdftoppm", default="pdftoppm")
     parser.add_argument("--tesseract", default="tesseract")
+    parser.add_argument("--skip-ocr", action="store_true")
     args = parser.parse_args()
-    build(args.pdf, args.results, args.output, args.pdftoppm, args.tesseract)
+    build(
+        args.pdf,
+        args.results,
+        args.output,
+        args.pdftoppm,
+        args.tesseract,
+        use_ocr=not args.skip_ocr,
+    )
 
 
 if __name__ == "__main__":

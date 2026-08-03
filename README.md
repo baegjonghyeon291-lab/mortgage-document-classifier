@@ -151,6 +151,18 @@ PDF locally with real page renders and text, run `scripts/build_local_review.py`
 ignored output directory on `127.0.0.1`. The generated viewer contains restricted data and must
 never be committed or published.
 
+### Browser upload application
+
+Run the local upload server to analyze a new PDF from the browser:
+
+```powershell
+python -m loan_document_classifier.webapp --host 127.0.0.1 --port 8765
+```
+
+Open `http://127.0.0.1:8765`, select a PDF, choose OCR/local AI, and start analysis. The upload is
+deleted after report generation. Session results remain only under ignored `outputs/runtime/` and
+can be deleted from the result screen.
+
 ## Measured package 01 baseline
 
 The current deterministic pipeline classifies 39 of 39 supplied package 01 pages correctly
