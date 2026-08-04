@@ -11,7 +11,7 @@
 ## Required assignment content
 
 - [x] Page-level document classification
-- [x] Logical document grouping and inferred order
+- [x] Logical document grouping, repeated-instance splitting, boundaries, and inferred order
 - [x] AI used through a local Ollama model
 - [x] OCR fallback for image-only pages
 - [x] package 02 classifications included

@@ -46,6 +46,12 @@ Pages 11, 26, and 40 have no embedded text. Poppler renders only those pages, Te
 their text, and the same explainable classifier identifies all three as title reports. Pages 36
 and 39 remain lower-confidence income pages and are explicitly marked for review.
 
+The final grouping pass reconstructs nine logical documents rather than collapsing every page of
+the same type into one bucket: one URLA, three income groups, one credit report, and four title
+groups. Repeated `Page N of M` values create separate instances. One four-page title group is
+reported as incomplete because page 1 is absent; unnumbered pages are not forced into competing
+numbered sequences.
+
 ## Interpretation limits
 
 The 100% package 01 score is in-sample and template-specific. The rules were revised after its

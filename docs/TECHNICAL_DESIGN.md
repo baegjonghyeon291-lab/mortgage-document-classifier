@@ -47,6 +47,15 @@ Package 01 pages are matched against the separated originals using normalized ex
 fingerprints. The builder fails on unmatched or ambiguous fingerprints instead of silently
 creating questionable labels.
 
+### Conservative document reconstruction
+
+Grouping does not equate one document type with one document instance. Explicit `Page N of M`
+markers define sequence candidates, repeated page numbers create additional instances, and
+different totals remain separate. When several candidates compete for an unnumbered page and no
+stable identifier is available, the page stays in a separate incomplete group instead of being
+assigned with false confidence. This favors auditable uncertainty over an apparently complete but
+incorrect reconstruction.
+
 ## Failure handling
 
 - Encrypted or unreadable PDF: stop with an actionable error.
@@ -69,4 +78,3 @@ creating questionable labels.
 - Rule-only production design: strong on supplied forms but brittle on unseen templates.
 - Model fine-tuning: insufficient labeled diversity for a credible generalization claim.
 - Whole-document parsing only: loses page-level structure required by the task.
-
