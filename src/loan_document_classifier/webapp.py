@@ -26,7 +26,7 @@ MAX_UPLOAD_BYTES = 50 * 1024 * 1024
 
 
 UPLOAD_PAGE = """<!doctype html><html lang="ko"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width"><title>Loan Package Review</title>
+<meta name="viewport" content="width=device-width"><title>MK Lending 문서분류 프로토타입</title>
 <style>
 :root{--ink:#24143d;--muted:#746987;--line:#e4d8ef;--purple:#7137a8;--purple-dark:#4d2375;--purple-soft:#f3ebfa;--bg:#f8f5fc}*{box-sizing:border-box}
 body{margin:0;background:radial-gradient(circle at 85% 10%,#d8bdeccc 0,transparent 32%),linear-gradient(145deg,#fbf9fd,#f2eaf9);color:var(--ink);font:15px/1.55 Segoe UI,sans-serif;min-height:100vh}main{max-width:760px;margin:7vh auto;padding:28px}
@@ -36,7 +36,7 @@ input[type=file]{position:absolute;left:-9999px}.options{display:grid;grid-templ
 button{width:100%;border:0;border-radius:12px;background:linear-gradient(135deg,#824bb1,var(--purple-dark));color:white;padding:14px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px #7137a833}button:hover:not(:disabled){filter:brightness(1.06)}button:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.privacy{margin:18px 0 0;color:#5b3478;background:#f6effb;border:1px solid #ddcaec;border-radius:10px;padding:11px;font-size:13px}
 #fileName{margin-top:12px;color:var(--purple);font-weight:700}.loading{position:fixed;inset:0;background:#2b123eea;color:white;display:none;place-items:center;text-align:center;z-index:5}.loading.show{display:grid}.spinner{width:48px;height:48px;border:5px solid #ffffff35;border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;margin:auto}@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:600px){main{padding:16px}.panel{padding:22px}.options{grid-template-columns:1fr}}
-</style></head><body><main><section class="panel"><h1>Loan Package Review</h1><p class="sub">대출 패키지 PDF의 페이지 분류 결과를 확인합니다.</p>
+</style></head><body><main><section class="panel"><h1>MK Lending 문서분류 프로토타입</h1><p class="sub">대출 패키지 페이지 분류 및 문서 그룹핑</p>
 <form id="form" method="post" action="/analyze" enctype="multipart/form-data">
 <label class="drop" for="pdf"><strong>PDF 파일 선택</strong><span>최대 50MB · 파일은 분석 후 자동 삭제</span><div id="fileName"></div></label><input id="pdf" name="pdf" type="file" accept="application/pdf,.pdf" required>
 <div class="options"><label class="option"><input name="ocr" type="checkbox" checked> OCR 사용<small>이미지로 된 페이지 읽기</small></label><label class="option"><input name="ai" type="checkbox" checked> 추가 검토<small>판단이 애매한 페이지만 확인</small></label></div>
@@ -246,7 +246,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Local loan package review server")
+    parser = argparse.ArgumentParser(description="MK Lending document classification prototype")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--runtime-root", type=Path, default=Path("outputs/runtime"))
@@ -266,7 +266,7 @@ def main() -> None:
     server.tesseract = args.tesseract
     server.ollama_url = args.ollama_url
     server.model = args.model
-    print(f"Loan Package Review: http://{args.host}:{args.port}/")
+    print(f"MK Lending 문서분류 프로토타입: http://{args.host}:{args.port}/")
     server.serve_forever()
 
 

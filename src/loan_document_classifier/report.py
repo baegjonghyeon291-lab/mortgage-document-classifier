@@ -26,7 +26,7 @@ def write_html_report(
     pages: list[PageResult],
     documents: list[DocumentResult],
     *,
-    title: str = "Loan Package Review",
+    title: str = "MK Lending 문서분류 프로토타입",
 ) -> None:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
